@@ -1,0 +1,147 @@
+/**
+* Description: Grid theme for Kronos in LESS
+*/
+
+@colorHeaderFooter: #fff;
+@colorMain: #333;
+@colorHover: gold;
+@bgcolor: #472400;
+
+.dynamicWidth{
+	margin:0px auto;
+	max-width:960px;
+	min-width:240px;
+}
+
+
+html{
+	background-color:@bgcolor;
+}
+body{
+	background:#fff;
+	font-family:Arial;
+	font-size:100%;
+	margin:0;
+	padding:0;
+}
+
+
+#wrapper_header {							
+	background:@bgcolor;
+	width:100%;
+}
+#header {
+	.dynamicWidth;
+	color:@colorHeaderFooter;
+	height: 140px;
+	padding:0;
+	position: relative;
+}
+img#logo{								/* LOGGA - ÖVERST I HEADER */
+	margin-left:-10px;
+	margin-top:8px;
+}
+
+
+#login-menu {
+	float:right;
+	font-size:0.80em;
+	margin-top:10px;
+	img.gravatar{vertical-align:middle;}
+	a{
+		color:@colorHeaderFooter; 
+		text-decoration:none;
+		&:hover{
+			color:@colorHover; 
+			text-decoration:none;
+		}
+	}
+}
+#main-menu{
+	position:absolute;
+	bottom:16px;
+	a{
+		color:@colorHeaderFooter; 
+		text-decoration:none; 
+		font-weight:bold; 
+		margin-right:20px;
+		&:hover{
+			color:@colorHover; 
+			text-decoration:none;
+		}
+	}
+	a.selected{
+		color:@colorHover; 
+	}
+}
+
+
+#wrapper {							
+	.dynamicWidth;
+	padding:0px 0px 0px 0px;
+}
+#main {							
+	color:@colorMain;
+	position: relative;
+	background:#fff;
+	min-height:400px;
+	padding:20px 0px;
+	overflow:hidden;
+}
+
+
+#wrapper_footer {							
+	background:@bgcolor;
+	width:100%;
+}
+#footer{								/* SIDFOT */
+	.dynamicWidth;
+	color:@colorHeaderFooter;
+	height:100%;
+	font-size:0.80em;
+	padding:10px 0px;
+	a{
+		color:@colorHeaderFooter;
+		&:hover{
+			color:@colorHover;
+			text-decoration:none;
+		}
+	}
+}
+
+
+
+/**
+* Forms
+*/
+input,textarea{font:inherit;}
+input[readonly]{color:#666;}
+input[type='submit']{font-size:smaller;}
+label{font-size:smaller;}
+.validation-failed{border:2px solid red;}
+.validation-message{color:red;font-size:smaller;}
+.form-action-link{font-size:smaller;}
+.content-edit input[type=text]{width:25em;}
+.content-edit textarea{width:25em;height:15em;}
+
+
+/**
+* User feedback message wrappers.
+*/
+.error, .alert, .warning, .notice, .success, .info {
+padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
+
+.error, .alert { background: #fbe3e4; color: #8a1f11; border-color: #fbc2c4; }
+.notice, .warning { background: #fff6bf; color: #514721; border-color: #ffd324; }
+.success { background: #e6efc2; color: #264409; border-color: #c6d880; }
+.info { background: #d5edf8; color: #205791; border-color: #92cae4; }
+.error a, .alert a { color: #8a1f11; }
+.notice a, .warning a { color: #514721; }
+.success a { color: #264409; }
+.info a { color: #205791; }
+
+/**
+* Misc
+*/
+.smaller-text{font-size:smaller;}
+.silent{color:#999;}

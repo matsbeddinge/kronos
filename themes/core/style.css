@@ -1,0 +1,125 @@
+/**
+* Description: Core theme for Kronos
+*/
+
+/**
+* Structure
+*/
+html{
+	background-color:#472400;
+}
+body{
+	background:#fff;
+	font-family:Arial;
+	font-size:100%;
+	margin:0;
+	padding:0;
+}
+
+
+div#wrapper_header {							
+	background:#472400;
+	width:100%;
+}
+#header {
+	position: relative;
+	height: 140px;
+	color:#fff;
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	margin:0px auto;
+	max-width:960px;
+	min-width:240px;
+}
+img#logo{								/* LOGGA - ÖVERST I HEADER */
+	margin-left:-10px;
+	margin-top:8px;
+}
+#login-menu {
+	float:right;
+	font-size:0.80em;
+	margin-top:10px;
+}
+#login-menu img.gravatar{vertical-align:middle;}
+#login-menu a, #main-menu a{color:#fff; text-decoration:none;}
+#login-menu a:hover, #main-menu a:hover{color:gold; text-decoration:none;}
+#main-menu{position:absolute; bottom:16px;}
+#main-menu a{color:#fff; text-decoration:none; font-weight:bold; margin-right:20px;}
+#main-menu a:hover{color:gold; text-decoration:none;}
+#main-menu a.selected{color:gold;}
+
+
+
+div#wrapper {							
+	margin:0 auto;
+	max-width:960px;
+	min-width:240px;					
+	padding:0px 0px 0px 0px;
+}
+div#main {							
+	position: relative;
+	background:#fff;
+	color:#000;
+	min-height:400px;
+	padding:20px 0px;
+	overflow:hidden;
+}
+
+
+div#wrapper_footer {							
+	background:#472400;
+	width:100%;
+	/*padding-bottom:20px; */
+}
+div#footer{								/* SIDFOT */
+	color:#fff;
+	height:100%;
+	font-size:0.80em;
+	padding:10px 0px;
+	margin:0px auto;
+	max-width:960px;
+	min-width:240px;
+}
+div#footer a{
+	color:#fff;
+}
+div#footer a:hover{
+	color:gold;
+	text-decoration:none
+}
+
+
+/**
+* Forms
+*/
+input,textarea{font:inherit;}
+input[readonly]{color:#666;}
+input[type='submit']{font-size:smaller;}
+label{font-size:smaller;}
+.validation-failed{border:2px solid red;}
+.validation-message{color:red;font-size:smaller;}
+.form-action-link{font-size:smaller;}
+.content-edit input[type=text]{width:25em;}
+.content-edit textarea{width:25em;height:15em;}
+
+
+/**
+* User feedback message wrappers.
+*/
+.error, .alert, .warning, .notice, .success, .info {
+padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
+
+.error, .alert { background: #fbe3e4; color: #8a1f11; border-color: #fbc2c4; }
+.notice, .warning { background: #fff6bf; color: #514721; border-color: #ffd324; }
+.success { background: #e6efc2; color: #264409; border-color: #c6d880; }
+.info { background: #d5edf8; color: #205791; border-color: #92cae4; }
+.error a, .alert a { color: #8a1f11; }
+.notice a, .warning a { color: #514721; }
+.success a { color: #264409; }
+.info a { color: #205791; }
+
+/**
+* Misc
+*/
+.smaller-text{font-size:smaller;}
+.silent{color:#999;}
