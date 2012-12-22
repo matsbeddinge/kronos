@@ -1,20 +1,28 @@
 <?php
-//	TEST CONTROLLER FOR DEVELOPMENT
-//
-
+/**
+ * Controller for development and testing purpose, helpful methods for the developer.
+ *
+ * @package KronosCore
+ */
 class CCTest extends CObject implements IController {
 	
-	// CONSTRUCTOR
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		parent::__construct();
 	}
 	
-	// INTERFACE REQUIRES INDEX METHOD
+	/**
+	 * Implementing interface IController. All controllers must have an index action.
+	 */
 	public function Index() {  
 		$this->Menu();
 	}
 	
-	// DISPLAY CObject ITEMS
+	/**
+	 * Display all items of the CObject.
+	 */
 	public function DisplayObject() {	
 		$this->Menu();
 
@@ -25,7 +33,9 @@ EOD;
 		$this->data['main'] .= '<pre>' . htmlent(print_r($this, true)) . '</pre>';
 	}
 
-	// CREATE LINKS IN DIFFERENT SUPPORTED WAYS
+	/**
+	 * Create a list of links in the supported ways.
+	 */
 	public function Links() {  
 		$this->Menu();
     
@@ -57,7 +67,9 @@ EOD;
 
 
 	
-	// CREATE METHOD THAT SHOWS THE MENU
+	/**
+	 * Create a method that shows the menu, same for all methods
+	 */
 	private function Menu() {  
 	$menu = array('test', 'test/index', 'test/links', 'test/displayobject');
     

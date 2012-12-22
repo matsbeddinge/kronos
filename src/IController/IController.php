@@ -1,8 +1,9 @@
 <?php
-//	INTERFACE FOR CLASSES IMPLEMENTING A CONTROLLER
-//	@PACKAGE KRONOS CORE
-//
-
+/**
+ * Interface for classes implementing a controller.
+ *
+ * @package KronosCore
+ */
 interface IController {
 	public function Index();
 }

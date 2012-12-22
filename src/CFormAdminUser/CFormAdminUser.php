@@ -1,14 +1,14 @@
 <?php
 /**
-* A form for editing the user profile.
-*
-* @package KronosCore
-*/
+ * A form for editing the user profile.
+ *
+ * @package KronosCore
+ */
 class CFormAdminUser extends CForm {
 
   /**
-* Constructor
-*/
+	 * Constructor
+	 */
   public function __construct($object, $user, $accessGroups) {
     parent::__construct();
 	$adminGroup = false;

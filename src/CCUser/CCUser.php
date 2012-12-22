@@ -1,23 +1,23 @@
 <?php
 /**
-* A user controller to manage login and view edit the user profile.
-*
-* @package LydiaCore
-*/
+ * A user controller to manage login and view edit the user profile.
+ *
+ * @package KronosCore
+ */
 class CCUser extends CObject implements IController {
 
 
   /**
-* Constructor
-*/
+	 * Constructor
+	 */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-* Show profile information of the user.
-*/
+	 * Show profile information of the user.
+	 */
   public function Index() {
     $this->views->SetTitle('User Controller');
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
@@ -28,8 +28,8 @@ class CCUser extends CObject implements IController {
   
 
   /**
-* View and edit user profile.
-*/
+	 * View and edit user profile.
+	 */
   public function Profile() {
     $form = new CFormUserProfile($this, $this->user);
     if($form->Check() === false) {
@@ -47,8 +47,8 @@ class CCUser extends CObject implements IController {
   
 
   /**
-* Change the password.
-*/
+	 * Change the password.
+	 */
   public function DoChangePassword($form) {
     if($form['password']['value'] != $form['password1']['value'] || empty($form['password']['value']) || empty($form['password1']['value'])) {
       $this->AddMessage('error', 'Password does not match or is empty.');
@@ -61,8 +61,8 @@ class CCUser extends CObject implements IController {
   
 
   /**
-* Save updates to profile information.
-*/
+	 * Save updates to profile information.
+	 */
   public function DoProfileSave($form) {
 	$ret = $this->user->UpdateProfile($form['acronym']['value'],$form['name']['value'],$form['email']['value']);
     $this->AddMessage($ret, 'Saved profile.', 'Failed saving profile.');
@@ -70,7 +70,7 @@ class CCUser extends CObject implements IController {
   }
   
 
- /**
+	/**
    * Authenticate and login a user.
    */
   public function Login() {
@@ -90,8 +90,8 @@ class CCUser extends CObject implements IController {
   }
 
   /**
-* Perform a login of the user as callback on a submitted form.
-*/
+	 * Perform a login of the user as callback on a submitted form.
+	 */
   public function DoLogin($form) {
     if($this->user->Login($form['acronym']['value'], $form['password']['value'])) {
       $this->AddMessage('success', "Welcome {$this->user['name']}.");
@@ -104,9 +104,9 @@ class CCUser extends CObject implements IController {
     }
   }
   
-    /**
-* Create a new user.
-*/
+  /**
+	 * Create a new user.
+	 */
   public function Create() {
     $form = new CFormUserCreate($this);
     if($form->Check() === false) {
@@ -119,10 +119,10 @@ class CCUser extends CObject implements IController {
   
 
   /**
-* Perform a creation of a user as callback on a submitted form.
-*
-* @param $form CForm the form that was submitted
-*/
+	 * Perform a creation of a user as callback on a submitted form.
+	 *
+	 * @param $form CForm the form that was submitted
+	 */
   public function DoCreate($form) {
     if($form['password']['value'] != $form['password1']['value'] || empty($form['password']['value']) || empty($form['password1']['value'])) {
       $this->AddMessage('error', 'Password does not match or is empty.');
@@ -142,8 +142,8 @@ class CCUser extends CObject implements IController {
   }
 
   /**
-* Logout a user.
-*/
+	 * Logout a user.
+	 */
   public function Logout() {
     $this->user->Logout();
     $this->RedirectToController('login');
@@ -151,10 +151,10 @@ class CCUser extends CObject implements IController {
   
 
   /**
-* Init the user database.
-*/
+	 * Init the user database.
+	 */
   public function Init() {
-    $this->user->Init();
+    $this->user->Manage('install');
     $this->RedirectToController();
   }
   

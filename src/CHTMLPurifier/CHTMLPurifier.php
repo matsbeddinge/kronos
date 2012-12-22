@@ -1,23 +1,23 @@
 <?php
 /**
-* A wrapper for HTMLPurifier by Edward Z. Yang, http://htmlpurifier.org/
-*
-* @package KronosCore
-*/
+ * A wrapper for HTMLPurifier by Edward Z. Yang, http://htmlpurifier.org/
+ *
+ * @package KronosCore
+ */
 class CHTMLPurifier {
 
   /**
-* Properties
-*/
+	 * Properties
+	 */
   public static $instance = null;
 
 
   /**
-* Purify it. Create an instance of HTMLPurifier if it does not exists.
-*
-* @param $text string the dirty HTML.
-* @returns string as the clean HTML.
-*/
+	 * Purify it. Create an instance of HTMLPurifier if it does not exists.
+	 *
+	 * @param $text string the dirty HTML.
+	 * @returns string as the clean HTML.
+	 */
    public static function Purify($text) {
     if(!self::$instance) {
       require_once(dirname(__FILE__).'/htmlpurifier-4.4.0-standalone/HTMLPurifier.standalone.php');

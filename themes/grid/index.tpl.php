@@ -3,8 +3,8 @@
 <head>
   <meta charset='utf-8'/>
   <title><?=$title?></title>
-<link rel='stylesheet' href='<?=$stylesheet?>'/>
-<?php if(isset($inline_style)): ?><style><?=$inline_style?></style><?php endif; ?>
+	<link rel='stylesheet' href='<?=theme_url($stylesheet)?>'/>
+	<?php if(isset($inline_style)): ?><style><?=$inline_style?></style><?php endif; ?>
 </head>
 <body>
 
@@ -13,7 +13,9 @@
 <div id='header'>
 <div id='login-menu'><?=login_menu()?></div>
 <a href='<?=base_url()?>'><img id="logo" src="<?=theme_url($logo)?>" width="$logo_width" height="$logo_height" alt="Kronos" /></a>
-<?=main_menu()?>
+<?php if(region_has_content('navbar')): ?>
+<div id='navbar'><?=render_views('navbar')?></div>
+<?php endif; ?>
 </div>
 </div>
 </div>

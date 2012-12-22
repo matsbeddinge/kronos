@@ -1,8 +1,9 @@
 <?php
-//	INTERFACE FOR CLASSES WITH DATABASE INTERACTION INCLUDING SQL QUERIES
-//	@PACKAGE KRONOS CORE
-//
-
+/**
+* Interface for class that interacts with the database to encapsulates all SQL requests.
+*
+* @package KronosCore
+*/
 interface IHasSQL {
   public static function SQL($key=null);
 }

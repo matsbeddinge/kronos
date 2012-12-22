@@ -1,7 +1,7 @@
 <?php
 /**
-* Helpers for the template file.
-*/
+ * Helpers for the template file.
+ */
 
 $kronos->data['footer'] = <<<EOD
 <p>&copy;Kronos by Mats @BTH</p>

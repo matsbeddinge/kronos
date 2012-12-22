@@ -1,18 +1,24 @@
 <?php
-//	GUESTBOOK CONTROLLER guestbook controller as an example to show off some basic controller and model-stuff.
-//	@PACKAGE KRONOS CORE
-//
-
+/**
+ * A guestbook controller as an example to show off some basic controller and model-stuff.
+ *
+ * @package KronosCore
+ */
 class CCGuestbook extends CObject implements IController {
 
-//	Constructor
+/**
+ * Constructor
+ */
 public function __construct() {
 	parent::__construct();
 	$this->guestbookModel = new CMGuestbook();
 }
 
 
-//	Implementing interface IController. All controllers must have an index action.
+/**
+ * Implementing interface IController. All controllers must have an index action.
+ * Show a standard frontpage for the guestbook.
+ */
 public function Index() {
 	$this->views->SetTitle('Kronos Guestbook Example');
 	$this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
@@ -22,7 +28,9 @@ public function Index() {
 }
 
 
-//	Handle posts from the form and take appropriate action.
+/**
+ * Handle posts from the form and take appropriate action.
+ */
 public function Handler() {
 	if(isset($_POST['doAdd'])) {
 		$this->guestbookModel->Add(strip_tags($_POST['newEntry']));

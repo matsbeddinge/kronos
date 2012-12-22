@@ -1,23 +1,23 @@
 <?php
 /**
-* Admin Control Panel to manage admin stuff.
-*
-* @package LydiaCore
-*/
+ * Admin Control Panel to manage admin stuff.
+ *
+ * @package KronosCore
+ */
 class CCAdminControlPanel extends CObject implements IController {
 
 
   /**
-* Constructor
-*/
+	 * Constructor
+	 */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-* Show profile information of the user.
-*/
+	 * Show profile information of the user.
+	 */
   public function Index() {
 	if(!$this->user['isAuthenticated']){
 		$this->AddMessage('notice', 'You need to login.');
@@ -68,17 +68,17 @@ class CCAdminControlPanel extends CObject implements IController {
   }
   
   /**
-* Save updates to profile information.
-*/
+	 * Save updates to profile information.
+	 */
   public function UpdateUserProfile($form) {
 	$ret = $this->user->UpdateProfile($form['acronym']['value'],$form['name']['value'],$form['email']['value'],$form['id']['value']);
     $this->AddMessage($ret, 'Users profile is updated.', 'Failed updating users profile.');
     $this->RedirectToController('edit/'.$form['id']['value']);
 }
   
-      /**
-* Update users access groups.
-*/
+  /**
+	 * Update users access groups.
+	 */
   public function UpdateUserAccess($form) {
 	$this->user->DeleteUserGroups($form['id']['value']);
 	if(isset($_POST['groups'])){
@@ -95,9 +95,9 @@ class CCAdminControlPanel extends CObject implements IController {
   }
   
   
-    /**
-* Update users password.
-*/
+  /**
+	 * Update users password.
+	 */
   public function UpdateUserPassword($form) {
     if($form['password']['value'] != $form['password1']['value'] || empty($form['password']['value']) || empty($form['password1']['value'])) {
       $this->AddMessage('error', 'Password does not match or is empty.');

@@ -1,20 +1,25 @@
 <?php
-//	PARSE REQUEST AND IDENTIFY CONTROLLER, METHOD AND ARGUMENTS.
-//	@PACKAGE KRONOS CORE
-//
-
+/**
+ * Parse the request and identify controller, method and arguments.
+ *
+ * @package KronosCore
+ */
 class CRequest {
 
-//	MEMBER VARIABLES
+	/**
+	 * Member variables
+	 */
 	public $cleanUrl;
 	public $querystringUrl;
 
-//	CONSTRUCTOR
-//	Decide which type of url should be generated as outgoing links.
-//	default      = 0      => index.php/controller/method/arg1/arg2/arg3
-//	clean        = 1      => controller/method/arg1/arg2/arg3
-//	querystring  = 2      => index.php?q=controller/method/arg1/arg2/arg3
-//	@param boolean $urlType integer 
+	/**
+	 * Constructor
+	 *
+	 * Default is to generate url's of type index.php/controller/method/arg1/arg2/arg2
+	 *
+	 * @param boolean $clean generate clean url's of type /controller/method/arg1/arg2/arg2
+	 * @param boolean $querystring generate clean url's of type index.php?q=controller/method/arg1/arg2/arg2
+	 */
 	public function __construct($urlType=0) {
 		$this->cleanUrl       = $urlType= 1 ? true : false;
 		$this->querystringUrl = $urlType= 2 ? true : false;
@@ -22,17 +27,17 @@ class CRequest {
 
 
 	/**
-* Create a url in the way it should be created.
-*
-* @param $url string the relative url or the controller
-* @param $method string the method to use, $url is then the controller or empty for current
-* @param $arguments string the extra arguments to send to the method
-*/
-public function CreateUrl($url=null, $method=null, $arguments=null) {
-    // If fully qualified just leave it.
-if(!empty($url) && (strpos($url, '://') || $url[0] == '/')) {
-return $url;
-}
+	 * Create a url in the way it should be created.
+	 *
+	 * @param $url string the relative url or the controller
+	 * @param $method string the method to use, $url is then the controller or empty for current
+	 * @param $arguments string the extra arguments to send to the method
+	 */
+	public function CreateUrl($url=null, $method=null, $arguments=null) {
+		// If fully qualified just leave it.
+		if(!empty($url) && (strpos($url, '://') || $url[0] == '/')) {
+			return $url;
+		}
     
     // Get current controller if empty and method or arguments choosen
     if(empty($url) && (!empty($method) || !empty($arguments))) {
@@ -61,11 +66,15 @@ return $url;
 	
 	
 
-//	DIVIDE CURRENT URL IN CONTROLLER, METHOD AND ARGUMENTS
-//	CALCULATE base_url OF INSTALLATION
-//	STORE DETAILS IN $this
-//	@param $baseUrl, USE THIS AS HARDCODED BASEURL
-	public function Init($baseUrl = null) {
+	/**
+	 * Parse the current url request and divide it in controller, method and arguments.
+	 *
+	 * Calculates the base_url of the installation. Stores all useful details in $this.
+	 *
+	 * @param $baseUrl string use this as a hardcoded baseurl.
+	 * @param $routing array key/val to use for routing if url matches key.
+	 */
+	public function Init($baseUrl = null, $routing=null) {
 		$requestUri = $_SERVER['REQUEST_URI'];
 		$scriptName = $_SERVER['SCRIPT_NAME'];    
     
@@ -87,6 +96,15 @@ return $url;
     if(empty($request) && isset($_GET['q'])) {
       $request = trim($_GET['q']);
     }
+	
+	// Check if url matches an entry in routing table
+    $routed_from = null;
+    if(is_array($routing) && isset($routing[$request]) && $routing[$request]['enabled']) {
+      $routed_from = $request;
+      $request = $routing[$request]['url'];
+    }
+	
+	// Split the request into its parts
     $splits = explode('/', $request);
     
     // Set controller, method and arguments
@@ -105,6 +123,7 @@ return $url;
     $this->current_url = $currentUrl;
     $this->request_uri = $requestUri;
     $this->script_name = $scriptName;
+		$this->routed_from  = $routed_from;
     $this->request = $request;
     $this->splits	= $splits;
     $this->controller	= $controller;
@@ -112,7 +131,9 @@ return $url;
     $this->arguments = $arguments;
 	}
 
-//	GET URL OF CURRENT PAGE
+	/**
+	 * Get the url to the current page.
+	 */
 	public function GetCurrentUrl() {
 		$url = "http";
 		$url .= (@$_SERVER["HTTPS"] == "on") ? 's' : '';

@@ -1,19 +1,19 @@
 <?php
 /**
-* A form to manage content.
-*
-* @package KronosCore
-*/
+ * A form to manage content.
+ *
+ * @package KronosCore
+ */
 class CFormContent extends CForm {
 
   /**
-* Properties
-*/
+	 * Properties
+	 */
   private $content;
 
   /**
-* Constructor
-*/
+	 * Constructor
+	 */
   public function __construct($content) {
     parent::__construct();
     $this->content = $content;
@@ -32,8 +32,8 @@ class CFormContent extends CForm {
   
 
   /**
-* Callback to save the form content to database.
-*/
+	 * Callback to save the form content to database.
+	 */
   public function DoSave($form, $content) {
     $content['id'] = $form['id']['value'];
     $content['title'] = $form['title']['value'];
@@ -41,7 +41,8 @@ class CFormContent extends CForm {
     $content['data'] = $form['data']['value'];
     $content['type'] = $form['type']['value'];
     $content['filter'] = $form['filter']['value'];
-    return $content->Save();
+    $content->Save();
+	CKronos::Instance()->RedirectTo('content');
   }
   
   

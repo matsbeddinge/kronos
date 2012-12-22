@@ -1,9 +1,9 @@
 <?php
-//
-//	INTERFACE FOR CLASSES IMPLEMENTING SINGLETON PATTERN
-//	@PACKAGE KRONOS CORE
-//
-
+/**
+* Interface for classes implementing the singleton pattern.
+*
+* @package KronosCore
+*/
 interface ISingleton {
    public static function Instance();
 }
