@@ -74,7 +74,7 @@ class CFormMyGuestbook extends CForm {
 	 */
   public function __construct($object) {
     parent::__construct();
-    $this->objecyt = $object;
+    /*$this->objecyt = $object;*/
     $this->AddElement(new CFormElementTextarea('data', array('label'=>'Add entry:')));
     $this->AddElement(new CFormElementSubmit('add', array('callback'=>array($this, 'DoAdd'), 'callback-args'=>array($object))));
   }
