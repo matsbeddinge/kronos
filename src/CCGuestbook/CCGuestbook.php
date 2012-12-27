@@ -41,7 +41,8 @@ public function Handler() {
     elseif(isset($_POST['doCreate'])) {
 		$this->guestbookModel->Init();
     }
-    header('Location: ' . $this->request->CreateUrl('guestbook'));
+	$this->RedirectToController();
+    
 }
     
 }
