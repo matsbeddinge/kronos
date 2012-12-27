@@ -19,7 +19,7 @@
 if(!defined('__DIR__')) define('__DIR__', dirname(__FILE__));
   
 // Include the lessphp-compiler
-include __DIR__."/lessphp/lessc.inc.php";
+include __DIR__."/lessc.inc.php";
 
 // Use gzip if available
 if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip'))

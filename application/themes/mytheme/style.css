@@ -1,7 +1,7 @@
 /**
 * Description: Sample theme for site which extends the Kronos grid-theme.
 */
-@import url(www.student.bth.se/~mpsv11/phpmvc/kmom07/kronos/themes/grid/style.php);
+@import url(../../../themes/grid/style.php);
 
 #navbar ul.menu li a.selected, #navbar ul.menu li a:hover{
 	border-top-left-radius:10px;
