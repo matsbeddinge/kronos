@@ -1,6 +1,6 @@
 <?php
 /**
- * A model for managing Lydia modules.
+ * A model for managing Kronos modules.
  *
  * @package KronosCore
  */
@@ -10,7 +10,7 @@ class CMModules extends CObject {
 	 * Properties
 	 */
   private $kronosCoreModules = array('CKronos', 'CDatabase', 'CRequest', 'CViewContainer', 'CSession', 'CObject');
-  private $kronosCMFModules = array('CForm', 'CCPage', 'CCBlog', 'CMUser', 'CCUser', 'CMContent', 'CCContent', 'CFormUserLogin', 'CFormUserProfile', 'CFormUserCreate', 'CFormContent', 'CFormAdminUser', 'CHTMLPurifier');
+  private $kronosCMFModules = array('CForm', 'CCPage', 'CCBlog', 'CMUser', 'CCUser', 'CMContent', 'CCContent', 'CCComment', 'CMComment', 'CFormComment', 'CFormUserLogin', 'CFormUserProfile', 'CFormUserCreate', 'CFormContent', 'CFormAdminUser', 'CHTMLPurifier');
 
 
 	/**
@@ -62,7 +62,7 @@ class CMModules extends CObject {
       }
     }
     $dir->close();
-    ksort($modules, SORT_LOCALE_STRING);
+    krsort($modules, SORT_LOCALE_STRING);
     return $modules;
   }
 
@@ -144,14 +144,11 @@ class CMModules extends CObject {
 	 */
   public function Install() {
     $allModules = $this->ReadAndAnalyse();
-		function cmp($a, $b){
+		/*function cmp($a, $b){
 			return ($a == 'CMUser' ? -1 : ($b == 'CMUser' ? 1 : 0));
 		}
-		uksort($allModules, "cmp");
-    /*uksort($allModules, function($a, $b) {
-        return ($a == 'CMUser' ? -1 : ($b == 'CMUser' ? 1 : 0));
-      }
-    );*/
+		uksort($allModules, "cmp");*/
+    
     $installed = array();
     foreach($allModules as $module) {
       if($module['isManageable']) {

@@ -6,6 +6,10 @@
  */
 class CCContent extends CObject implements IController {
 
+	/**
+	 * Properties
+	 */
+  private $type = null;
 
   /**
 	 * Constructor
@@ -32,13 +36,17 @@ class CCContent extends CObject implements IController {
 	 */
   public function Edit($id=null) {
     $content = new CMContent($id);
+		if($this->type != null){$content['type'] = $this->type;}
     $form = new CFormContent($content);
+		$redirect = $this->session->GetNextRedirect();
+		$this->session->SetNextRedirect($redirect);
     $status = $form->Check();
     if($status === false) {
       $this->AddMessage('notice', 'The form could not be processed.');
       $this->RedirectToController('edit', $id);
     } else if($status === true) {
-      $this->RedirectToController('edit', $content['id']);
+      //$this->RedirectToController('edit', $content['id']);
+			$this->RedirectTo($redirect);
     }
     
     $title = isset($id) ? 'Edit' : 'Create';
@@ -54,7 +62,8 @@ class CCContent extends CObject implements IController {
   /**
 	 * Create new content.
 	 */
-  public function Create() {
+  public function Create($type=null) {
+		$this->type = $type;
     $this->Edit();
   }
 
@@ -82,7 +91,7 @@ class CCContent extends CObject implements IController {
   public function Init() {
     $content = new CMContent();
     $content->Init();
-    $this->RedirectToController();
+    $this->RedirectToController('Guestbook');
   }
   
 

@@ -134,7 +134,7 @@ class CKronos implements ISingleton {
 		// Is theme enabled?
 		if(!isset($this->config['theme'])) { return; }
 		
-		// Get the paths and settings for the theme, look in the site dir first
+		// Get the paths and settings for the theme, look in the application dir first
 		$themePath	= KRONOS_INSTALL_PATH . '/' . $this->config['theme']['path'];
 		$themeUrl	= $this->request->base_url . $this->config['theme']['path'];
 
@@ -149,7 +149,7 @@ class CKronos implements ISingleton {
 		// Add stylesheet name to the $kronos->data array
 		$this->data['stylesheet'] = $this->config['theme']['stylesheet'];
 		
-		// Make the theme urls available as part of $ly
+		// Make the theme urls available as part of $kronos
 		$this->themeUrl = $themeUrl;
 		$this->themeParentUrl = $parentUrl;
 		

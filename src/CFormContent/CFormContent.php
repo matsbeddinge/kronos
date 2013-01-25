@@ -42,7 +42,8 @@ class CFormContent extends CForm {
     $content['type'] = $form['type']['value'];
     $content['filter'] = $form['filter']['value'];
     $content->Save();
-	CKronos::Instance()->RedirectTo('content');
+		return true;
+		//CKronos::Instance()->RedirectTo('content');
   }
   
   

@@ -31,9 +31,9 @@ class CCTheme extends CObject implements IController {
 
     $this->views->SetTitle('Theme');
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
-      'theme_name' => $this->config['theme']['name'],
+      'theme_name' => $this->config['theme']['path'],
       'methods' => $items,
-    ));
+    ), 'primary');
   }
 
 

@@ -21,6 +21,7 @@ class CCIndex extends CObject implements IController {
     $this->views->SetTitle('Index');
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(), 'primary');
     $this->views->AddInclude(dirname(__FILE__) . '/sidebar.tpl.php', array('controllers'=>$controllers), 'sidebar');
+	//$this->RedirectTo('about-me');
   }
 
 

@@ -85,7 +85,7 @@ class CFormMyGuestbook extends CForm {
 	 */
   public function DoAdd($form, $object) {
     return $object->Add(strip_tags($form['data']['value']));
-	 $this->RedirectToController();
+	 
   }
   
 }

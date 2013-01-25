@@ -93,10 +93,17 @@ function login_menu() {
 
 
 /**
- * Get a gravatar based on the user's email.
+ * Get a gravatar based on the logged in user's email.
  */
 function get_gravatar($size=null) {
   return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CKronos::Instance()->user['email']))) . '.jpg?r=pg&amp;d=wavatar&amp;' . ($size ? "s=$size" : null);
+}
+
+/**
+ * Get a gravatar based on the user's email from database. To be used together with blog or forum posts by example.
+ */
+function get_blog_gravatar($email, $size=null) {
+  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim($email))) . '.jpg?r=pg&amp;d=wavatar&amp;' . ($size ? "s=$size" : null);
 }
 
 
@@ -217,4 +224,12 @@ function region_has_content($region='default' /*...*/) {
       }
     }
     return "<nav id='main-menu'>$items</nav>";
+  }
+
+  function logo($logo){
+	
+	
+	if (is_file(KRONOS_APPLICATION_PATH . "/themes/mytheme/{$logo}")){
+		return theme_url($logo);
+	}
   }

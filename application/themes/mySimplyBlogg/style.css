@@ -1,0 +1,10 @@
+/**
+* Description: Extends the Kronos simplyBlogg-theme.
+*/
+@import url(../../../themes/simplyBlogg/style.php);
+
+#navbar ul.menu li a.selected, #navbar ul.menu li a:hover{
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+}
+

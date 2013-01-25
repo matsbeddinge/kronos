@@ -20,9 +20,10 @@ class CCPage extends CObject implements IController {
 	 */
   public function Index() {
     $content = new CMContent();
-    $this->views->SetTitle('Page');
+    $this->views->SetTitle($this->config['theme']['data']['sitetitle']);
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
                   'content' => null,
+				  'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
                 ));
   }
 
@@ -34,9 +35,10 @@ class CCPage extends CObject implements IController {
 	 */
   public function View($id=null) {
     $content = new CMContent($id);
-    $this->views->SetTitle('Page: '.htmlEnt($content['title']));
+    $this->views->SetTitle($this->config['theme']['data']['sitetitle'].' '.htmlEnt($content['title']));
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
                   'content' => $content,
+				  'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
                 ));
   }
 

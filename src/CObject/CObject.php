@@ -19,7 +19,7 @@ class CObject {
 	protected $user;
 
 	/**
-	 * Constructor, can be instantiated by sending in the $ly reference.
+	 * Constructor, can be instantiated by sending in the $kronos reference.
 	 */
 	protected function __construct($kronos=null) {
 		if(!$kronos) {

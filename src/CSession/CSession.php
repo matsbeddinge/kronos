@@ -36,6 +36,15 @@ class CSession {
 	public function __get($key) {
 			return isset($this->data[$key]) ? $this->data[$key] : null;
 		}
+	
+	
+	/**
+	 * Get, Set or Unset Redirects including Login Process
+	 */
+	public function SetRedirectWithLogin($redirect) { $this->data['redirect_with-login'] = $redirect; }
+	public function UnsetRedirectWithLogin() { unset($this->data['redirect_with-login']); }
+	public function GetRedirectWithLogin() { return isset($this->data['redirect_with-login']) ? $this->data['redirect_with-login'] : null; }
+	
 
 	/**
 	 * Get, Set or Unset the authenticated user
