@@ -10,7 +10,7 @@ Download from GitHub and set up on server
 git clone https://github.com/matsbeddinge/kronos.git
 
 2. Make the application/data directory writeable with following command, (standing in the directory where you downloaded the MVC):
-chmod 777 application/data (or use an ftp program like filezilla)
+cd kronos; chmod 777 application/data (or use an ftp program like filezilla)
 
 3. If your installation is not on the root of the server you have to edit the .htaccess file. Open the file in a texteditor and
 uncomment the line RewriteBase and write the relative path for your installation, by example: RewriteBase /~mpsv11/phpmvc/kmom10/
