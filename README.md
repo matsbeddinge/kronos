@@ -24,13 +24,14 @@ Install your database tables
 
 Set up your account and add your first page and blogpost
 ========================================================
-6. At installation you have got your own account. You are administrator and can login with acronym:root and password:root. Do login.
+At installation you have got your own account. You are administrator and can login with acronym:root and password:root.
+At installation also one about-me page and one blog page with a first demo blogpost was generated.
+
+6. Do login (with root/root).
 7. First of all change your profile and password by click the link admin in the upper right corner.
 8. Click on the pen symbol to edit user root.
 9. Change your profile and password and save.
 10. Logout and now login with your new acronym and password.
-
-At installation one about-me page and one blog page with a first demo blogpost was generated.
 11. Go to the about page and click on the edit link, (you need to have logged in). Now fill in whatever information you like to give.
 12. Go to the blog page and click on the edit link on the first post, (you need to have logged in). Write your first blog post.
 
