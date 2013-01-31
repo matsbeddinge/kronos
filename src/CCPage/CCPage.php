@@ -12,6 +12,7 @@ class CCPage extends CObject implements IController {
 	 */
   public function __construct() {
     parent::__construct();
+	
   }
 
 
@@ -35,6 +36,7 @@ class CCPage extends CObject implements IController {
 	 */
   public function View($id=null) {
     $content = new CMContent($id);
+	$this->session->SetNextRedirect($this->request->request);
     $this->views->SetTitle($this->config['theme']['data']['sitetitle'].' '.htmlEnt($content['title']));
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
                   'content' => $content,

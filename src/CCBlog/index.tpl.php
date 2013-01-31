@@ -1,10 +1,6 @@
-<?php if($hasRoleAdmin || $hasRoleUser): ?>
-	<h3><a href='<?=create_url("content/create/post")?>'>Make a new blog post >></a></h3>
-<?php endif;?>
-
 <?php if($contents != null):?>
   <?php foreach($contents as $val):?>
-    <article class="blogpost">
+    <article class="cloud">
 			<?php if($hasRoleAdmin || CKronos::Instance()->user['acronym'] == $val['owner']): ?>
 				<p class='smaller-text silent' style="float:right;">
 					<a href='<?=create_url("content/edit/{$val['id']}")?>'>edit</a> 
@@ -26,10 +22,12 @@
 				<?php endif;?>
 				</a>
 			</p>
-			<hr>
+			
 		</article>
 	<?php endforeach; ?>
 		
 <?php else:?>
-  <p>No blog posts exists.</p>
+	<article class="cloud">
+		<p>No blog posts exists.</p>
+	</article>
 <?php endif;?>

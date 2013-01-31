@@ -1,10 +1,48 @@
 /**
-* Description: Extends the Kronos simplyBlogg-theme.
+* Description: Extends the Kronos simplyBlogg-theme. Here you can easy make smaller modification to the style of the theme.
+* See below what you can do easy, if you have more knowledge in css you can of course do more than this.
 */
-@import url(../../../themes/simplyBlogg/style.php);
+@import url(../../../themes/simplyBlogg/style.css);
 
-#navbar ul.menu li a.selected, #navbar ul.menu li a:hover{
-	border-top-left-radius:10px;
-	border-top-right-radius:10px;
+
+/**
+*	Here you can change font-family and colors for bread text (body) and headings (h1,h2,h3,h4,h5,h6).
+*	All you have to do is to update the default values i.e. change Calibri to Arial and #011249 (dark blue) to #ff0000 (red) by example.
+*/
+body, .cloud{
+	font-family:Calibri;
+	color:#011249;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family:Cambria;
+	color:#011249;
 }
 
+
+/**
+*	Here you can change the default background colors of body, navbar/footer and the white boxes the .cloud
+*/
+body{
+	background-color:#cccccc;
+}
+#outer-wrap-navbar, #outer-wrap-footer, html{
+	background-color:#011249;
+}
+.cloud{
+	background-color:#ffffff;
+}
+
+
+/**
+*	Here you can change the default background colors of the navbar links, when hovered and selected.
+*/
+#navbar ul.my-navbar li a:hover, #navbar ul.my-navbar li a.selected{
+	background-color:#4b60a4;
+}
+
+/**
+*	Here you can change the default text colors of the navbar links.
+*/
+#navbar ul.my-navbar li a, #navbar ul.my-navbar li a.selected{
+	color:#ffffff;
+}

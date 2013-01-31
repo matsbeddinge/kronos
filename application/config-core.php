@@ -15,10 +15,10 @@ ini_set('display_errors', 1);
  * Set what to show as debug or developer information in the get_debug() theme helper.
  */
 $kronos->config['debug']['kronos'] = false;
-$kronos->config['debug']['session'] = true;
-$kronos->config['debug']['timer'] = true;
-$kronos->config['debug']['db-num-queries'] = true;
-$kronos->config['debug']['db-queries'] = true;
+$kronos->config['debug']['session'] = false;
+$kronos->config['debug']['timer'] = false;
+$kronos->config['debug']['db-num-queries'] = false;
+$kronos->config['debug']['db-queries'] = false;
 
 
 /**
@@ -68,16 +68,16 @@ $kronos->config['character_encoding'] = 'UTF-8';
  */
 $kronos->config['controllers'] = array(
 	'index'	=> array('enabled' => true,'class' => 'CCIndex'),
-	'test'	=> array('enabled' => true,'class' => 'CCTest'),
-	'guestbook'	=> array('enabled' => true,'class' => 'CCGuestbook'),
+	'test'	=> array('enabled' => false,'class' => 'CCTest'),
+	'guestbook'	=> array('enabled' => false,'class' => 'CCGuestbook'),
 	'user'	=> array('enabled' => true,'class' => 'CCUser'),
 	'content'	=> array('enabled' => true,'class' => 'CCContent'),
 	'blog'	=> array('enabled' => true,'class' => 'CCBlog'),
 	'page'	=> array('enabled' => true,'class' => 'CCPage'),
-	'theme'     => array('enabled' => true,'class' => 'CCTheme'),
+	'theme'     => array('enabled' => false,'class' => 'CCTheme'),
 	'admin' => array('enabled' => true,'class' => 'CCAdminControlPanel', 'access' => 'admin'),
 	'module'   => array('enabled' => true,'class' => 'CCModules'),
-	'my'        => array('enabled' => true,'class' => 'CCMyController'),
+	'my'        => array('enabled' => false,'class' => 'CCMyController'),
 	'comment'	=> array('enabled' => true,'class' => 'CCComment'),
 );
 

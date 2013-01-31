@@ -1,5 +1,5 @@
 /**
- * Description: Grid theme for Kronos based on less, lessphp and semantic.gs.
+ * Description: SimplyBlog theme for Kronos based on less, lessphp and semantic.gs.
  */
 
 /** --------------------------------------------------------------
@@ -105,14 +105,14 @@ body {
 /** --------------------------------------------------------------
 * Settings
 */
-@bgcolor1: #eee;
-@bgcolor2: #fff;
-@bgcolor: #472400;
-@bgtest: hsla(0,0%,90%,0.5);
-@color: #333;
-@colorHeaderFooter: #fff;
-@colorHover: gold;
 
+@bgcolorNav: #011249;
+@bgcolorNav2: #4b60a4;
+@bgcolor: #ccc;
+@color: #011249;
+@colorHF: #fff;
+@colorHover: #fff;
+@link-color: #011249;
 
 /* Wrap elements to site width in grid layout*/
 /*.wrap() {width:@total-width;margin:0 auto;.clearfix();}*/
@@ -143,7 +143,7 @@ body {
 @font-family-monospace = "Courier New", Courier, monospace;
 @font-family-helvetica = Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 @magic-number: 22px; /* 16px - 100%/1.375 */
-@link-color: #600;
+
 
 body{color:#222;font:100.01%/1.375 @font-family-helvetica;}
 
@@ -157,9 +157,9 @@ body{color:#222;font:100.01%/1.375 @font-family-helvetica;}
 /* 1.375em * 16px = 22 => line-height: 22 = 1*/
 /* 1.25em * 16px = 20 => line-height: 22/20 = 1.1*/
 
-.headings-general() {font-weight:normal;color:#111;margin-bottom:@magic-number;font-family:@font-family-cambria}
-h1{.headings-general();font-size:2.375em;line-height:1.1579;border-bottom:1px solid #ccc;margin-bottom:@magic-number - 1px;}
-h2{.headings-general();font-size:1.875em;line-height:1.4667;}
+.headings-general() {font-weight:normal;color:@color;margin-bottom:@magic-number;font-family:@font-family-cambria}
+h1{.headings-general();font-size:2.375em;line-height:1.1579;border-bottom:1px solid #ccc;margin-bottom:(@magic-number - 1px);}
+h2{.headings-general();font-size:1.875em;line-height:1.4667;margin-bottom:0;}
 h3{.headings-general();font-size:1.375em;line-height:1;}
 h4{.headings-general();font-size:1.25em;line-height:1.1;}
 h5{.headings-general();font-size:1em;font-weight:bold;}
@@ -168,7 +168,7 @@ h1 img,h2 img,h3 img,h4 img,h5 img,h6 img{margin:0;}
 
 
 /* Text elements */
-p{margin-bottom:1.375em;}
+p{margin-bottom:@magic-number;font-size:1em;line-height:1.375;}
 a{color:@link-color;text-decoration:underline;
   &:focus,&:hover{color:lighten(@link-color, 10%);text-decoration:none;}
 }
@@ -177,6 +177,7 @@ strong,dfn{font-weight:bold;}
 em,dfn{font-style:italic;}
 pre{margin-bottom:1.375em;white-space:pre;}
 pre,code,tt,.code{font:1em/1.375 @font-family-monospace;}
+.smaller-text{font-size:0.75em;line-height:1.8333333;margin-bottom:@magic-number;}
 
 /* Lists */
 li ul,li ol{margin:0;}
@@ -214,16 +215,16 @@ label{font-size:smaller;}
 
 .content-edit{
   input[type=text]{width:30em;}
-  textarea{width:40em;height:15em;}
+  textarea{width:30em;height:15em;}
 }
 
 
 /** --------------------------------------------------------------
 * HTML & Body
 */
-html{background-color:@bgcolor;}
-body{margin:0;padding:0;color:@color;background-color:@bgcolor2;font:@font;
- // &:hover{background:#fff url(grid_12_60_20.png) repeat-y center top;}
+html{background-color:@bgcolorNav;}
+body{margin:0;padding:0;color:@color;background-color:@bgcolor;font:@font;
+ //&:hover{background:#fff url(grid_12_60_20.png) repeat-y center top;}
 }
 
 
@@ -232,77 +233,46 @@ body{margin:0;padding:0;color:@color;background-color:@bgcolor2;font:@font;
 *
 */
 .tablecell() {display:table-cell;vertical-align:middle;text-align:center;}
-#outer-wrap-header{margin-bottom:@magic-number;background-color:@bgcolor;}
+#outer-wrap-header{;}
 #inner-wrap-header{.wrap();}
-#header{.column(12);color:@colorHeaderFooter;height:100%;position:relative;padding-top:@magic-number/2;}
+#header{.column(12);color:@colorHF;height:100%;position:relative;padding:@magic-number/2 0;}
 
 img#logo{								
-	margin-bottom:@magic-number/2;
+	;
 }
 
 /** --------------------------------------------------------------
 * Login menu
 */
-#login-menu{float:right;font-size:smaller;
+#login-menu{float:right;font-size:0.75em;line-height:1.8333333;
   img.gravatar{vertical-align:middle;}
   a{text-decoration:none;}
   a:hover{text-decoration:underline;color:@colorHover;}
 }
 
-/** --------------------------------------------------------------
-* Main menu
-*/
-#main-menu{
-	position:absolute;
-	top:@magic-number*5;
-	a{
-		color:@colorHeaderFooter; 
-		text-decoration:none; 
-		font-weight:bold; 
-		margin-right:20px;
-		&:hover{
-			color:@colorHover; 
-			text-decoration:none;
-		}
-	}
-	a.selected{
-		color:@colorHover; 
-	}
-}
 
 /** --------------------------------------------------------------
  * Navbar
  */
+#outer-wrap-navbar{margin-bottom:@magic-number;background-color:@bgcolorNav;
+	
+}
+#inner-wrap-navbar{.wrap();}
 #navbar{
-  ul.menu{list-style-type:none;padding:1px 0px;margin:0;
-    li{padding:0;margin:0;display:inline;
-      a{padding:3px 8px;
+  ul.my-navbar{padding:0;margin:0;margin-left:@magic-number/2;
+    li{list-style-type:none;padding:0;margin-right:2px;font-size:1em;line-height:1.375;float:left;
+      a{display:block;padding:@magic-number/2 @magic-number/2;
 				text-decoration:none;
-				border-top:1px solid transparent;
-				border-right:1px solid transparent;
-				border-left:1px solid transparent;
-				color:@colorHeaderFooter;
-        &:hover{background:#93591e;}
-        &.selected{background:@bgcolor2;
-				border-top:1px solid @bgcolor2;
-				border-right:1px solid @bgcolor2;
-				border-left:1px solid @bgcolor2;
-				color:@color}
+				color:#fff;
+        &:hover{background:@bgcolorNav2;
+		
+		}
+        &.selected{background:@bgcolorNav2;
+			
+			color:#fff;}
       }
     }
   }
-}
-
-
-/** --------------------------------------------------------------
-* Banner
-*/
-#banner {display:table;margin-bottom:@magic-number/2;
-  #site-logo{.tablecell();}
-  #site-title{.tablecell();font-size:2.5em;padding-left:0.2em;text-shadow:#ccc 2px -2px 2px;
-    a{text-decoration:none;}
-  }
-  #site-slogan{.tablecell();font-size:1.5em;padding-left:10px;}
 }
 
 
@@ -313,19 +283,6 @@ img#logo{
 #outer-wrap-flash{}
 #inner-wrap-flash{.wrap();height:@magic-number*3;margin-bottom:@magic-number;}
 #flash{.column(12);height:100%;}
-
-
-/** --------------------------------------------------------------
-* The featured area.
-*
-*/
-#outer-wrap-featured{}
-#inner-wrap-featured{.wrap;height:@magic-number*5;margin-bottom:@magic-number;}
-#featured{}
-
-#featured-first,
-#featured-middle,
-#featured-last{.column(4);height:100%;}
 
 
 /** --------------------------------------------------------------
@@ -341,40 +298,12 @@ img#logo{
 
 
 /** --------------------------------------------------------------
-* The triptych area.
-*
-*/
-#outer-wrap-triptych{}
-#inner-wrap-triptych{.wrap();height:@magic-number*5;margin-bottom:@magic-number;}
-#triptych{height:inherit;}
-
-#triptych-first,
-#triptych-middle,
-#triptych-last{.column(4);height:100%;}
-
-
-/** --------------------------------------------------------------
-* The footer column area.
-*
-*/
-#outer-wrap-footer-column{background-color:@bgcolor;}
-#inner-wrap-footer-column{.wrap();height:@magic-number*5;padding-bottom:@magic-number;}
-#footer{height:inherit;}
-
-#footer-column-one,
-#footer-column-two,
-#footer-column-three,
-#footer-column-four{.column(3);font-size:0.9em;margin-top:1em;height:100%;
-background-color:lighten(@bgtest,10%);}
-
-
-/** --------------------------------------------------------------
 * The footer area.
 *
 */
-#outer-wrap-footer{background-color:@bgcolor;}
+#outer-wrap-footer{background-color:@bgcolorNav;}
 #inner-wrap-footer{.wrap();}
-#footer{.column(12);color:@colorHeaderFooter;padding:@magic-number/2 0;
+#footer{.column(12);color:@colorHF;padding:@magic-number/2;
 	a{color:inherit;
 	&:hover{color:@colorHover;text-decoration:none;}
 	}
@@ -382,9 +311,27 @@ background-color:lighten(@bgtest,10%);}
 
 
 /** --------------------------------------------------------------
+* Blog
+*/
+.cloud {
+	border:1px solid #fff;
+	border-radius:10px;
+	background-color:#fff;
+	box-shadow: 10px 10px 5px #888888;
+	margin-bottom:@magic-number;
+	padding:(@magic-number/2 - 2px);
+	color:@color;
+}
+
+.cloud img{
+	vertical-align:middle;
+}
+
+
+/** --------------------------------------------------------------
 * Links
 */
-.hover(){text-decoration:none;color:#5C0A0A;}
+.hover(){text-decoration:none;}
 a{color:inherit;
   &:link{}
   &:visited{}
@@ -413,5 +360,5 @@ padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
 /** --------------------------------------------------------------
 * Misc
 */
-.smaller-text{font-size:smaller;}
+.one-col-indent{margin-left:(@column-width + @gutter-width)*1px;}
 .silent{color:#999;}

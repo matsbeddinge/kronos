@@ -19,15 +19,16 @@ class CFormContent extends CForm {
     $this->content = $content;
     $save = isset($content['id']) ? 'save' : 'create';
     $this->AddElement(new CFormElementHidden('id', array('value'=>$content['id'])))
-         ->AddElement(new CFormElementText('title', array('value'=>$content['title'])))
-         ->AddElement(new CFormElementText('key', array('value'=>$content['key'])))
-         ->AddElement(new CFormElementTextarea('data', array('label'=>'Content:', 'value'=>$content['data'])))
-         ->AddElement(new CFormElementText('type', array('value'=>$content['type'])))
-         ->AddElement(new CFormElementText('filter', array('value'=>$content['filter'])))
+         ->AddElement(new CFormElementText('title', array('value'=>$content['title'], 'required'=>true)))
+         ->AddElement(new CFormElementText('key', array('value'=>$content['key'], 'required'=>true)))
+         ->AddElement(new CFormElementTextarea('data', array('label'=>'Content:', 'value'=>$content['data'], 'required'=>true)))
+         ->AddElement(new CFormElementText('type', array('label'=>'Type(page, post):', 'value'=>$content['type'], 'required'=>true)))
+         ->AddElement(new CFormElementText('filter', array('label'=>'Filter(htmlpurify, bbcode, plain):', 'value'=>$content['filter'], 'required'=>true)))
          ->AddElement(new CFormElementSubmit($save, array('callback'=>array($this, 'DoSave'), 'callback-args'=>array($content))));
 
     $this->SetValidation('title', array('not_empty'))
-         ->SetValidation('key', array('not_empty'));
+         ->SetValidation('key', array('not_empty'))
+		 ->SetValidation('data', array('not_empty'));
   }
   
 

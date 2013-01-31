@@ -285,7 +285,7 @@ class CKronos implements ISingleton {
     if(isset($this->config['menus'][$menu])) {
       foreach($this->config['menus'][$menu] as $val) {
         $selected = null;
-        if($val['url'] == $this->request->request || $val['url'] == $this->request->routed_from) {
+        if($val['url'] == $this->request->controller || $val['url'] == $this->request->routed_from) {
           $selected = " class='selected'";
         }
         $items .= "<li><a {$selected} href='" . $this->CreateUrl($val['url']) . "'>{$val['label']}</a></li>\n";

@@ -12,6 +12,7 @@ class CCBlog extends CObject implements IController {
 	 */
   public function __construct() {
     parent::__construct();
+	
   }
 
 
@@ -23,15 +24,14 @@ class CCBlog extends CObject implements IController {
 	$content = new CMContent();
     $this->views->SetTitle($this->config['theme']['data']['sitetitle'].' All Blog posts');
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
-			'contents' => $content->ListAll(array('type'=>'post', 'order-by'=>'title', 'order-order'=>'DESC')),
+			'contents' => $content->ListAll(array('type'=>'post', 'order-by'=>'created', 'order-order'=>'DESC')),
 			'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
 			'hasRoleUser'=>$this->user['hasRoleUser'],
 		),'primary');
+	$this->views->AddString("<p class='cloud'>To be implementet:<br>Info about blogger and statistics.</p>", array(), 'sidebar');
 	if ($this->user['hasRoleAdmin'] || $this->user['hasRoleUser']){
-		//$url = $this-CreateUrl('content/create/post');
-		$this->views->AddString("<h3><a href='{$this->CreateUrl('content/create/post')}'>Make a new blog post >></a></h3>", array(), 'sidebar');
+		$this->views->AddString("<h3 style='text-align:right'><a href='{$this->CreateUrl('content/create/post')}'>Make a new blog post >></a></h3>", array(), 'sidebar');
 	}
-	$this->views->AddString("To be implementet:<br>Info about blogger and statistics.", array(), 'sidebar');
   }
   
   
@@ -49,7 +49,7 @@ class CCBlog extends CObject implements IController {
 			'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
 			'hasRoleUser'=>$this->user['hasRoleUser'],
 		),'primary');
-	$this->views->AddString("To be implementet:<br>Info about blogger.", array(), 'sidebar');
+	$this->views->AddString("<p class='cloud'>To be implementet:<br>Info about blogger.</p>", array(), 'sidebar');
   }
 
 

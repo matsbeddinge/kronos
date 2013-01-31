@@ -229,7 +229,7 @@ function region_has_content($region='default' /*...*/) {
   function logo($logo){
 	
 	
-	if (is_file(KRONOS_APPLICATION_PATH . "/themes/mytheme/{$logo}")){
+	if (is_file(KRONOS_APPLICATION_PATH . "/themes/mySimplyBlogg/{$logo}")){
 		return theme_url($logo);
 	}
   }

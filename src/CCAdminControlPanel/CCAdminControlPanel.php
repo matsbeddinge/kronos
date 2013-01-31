@@ -19,13 +19,14 @@ class CCAdminControlPanel extends CObject implements IController {
 	 * Show profile information of the user.
 	 */
   public function Index() {
+	$this->session->SetNextRedirect($this->request->request);
 	if(!$this->user['isAuthenticated']){
 		$this->AddMessage('notice', 'You need to login.');
 		$this->session->SetNextRedirect($this->request->current_url);
 		$this->RedirectTo('user', 'login');
 	}
 	if($this->user['hasRoleAdmin']){
-		$this->views->SetTitle('Admin Control Panel');
+		$this->views->SetTitle($this->config['theme']['data']['sitetitle'].' Admin Control Panel');
 		$this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
 		  'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
 		  'users'=>$this->user->viewAllUsers(),
@@ -33,7 +34,7 @@ class CCAdminControlPanel extends CObject implements IController {
 		  'create_user_url' => $this->CreateUrl('user', 'create'),
 		));
 	} else {
-		$this->views->SetTitle('Admin Control Panel');
+		$this->views->SetTitle($this->config['theme']['data']['sitetitle'].' Admin Control Panel');
 		$this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
 		  'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
 		));
@@ -54,18 +55,37 @@ class CCAdminControlPanel extends CObject implements IController {
 		  $this->AddMessage('notice', 'Some fields did not validate and the form could not be processed.');
 		  $this->RedirectToController('edit/'.$id);
 		}
-		$this->views->SetTitle('Admin Control Panel - Users');
+		$this->views->SetTitle($this->config['theme']['data']['sitetitle'].' Admin Control Panel - Users');
 		$this->views->AddInclude(dirname(__FILE__) . '/user.tpl.php', array(
 			'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
 			'user_form'=>$form->GetHTML(),
 		));
 	} else {
-		$this->views->SetTitle('Admin Control Panel - Users');
+		$this->views->SetTitle($this->config['theme']['data']['sitetitle'].' Admin Control Panel - Users');
 		$this->views->AddInclude(dirname(__FILE__) . '/user.tpl.php', array(
 			'hasRoleAdmin'=>$this->user['hasRoleAdmin'],
 		));
 	}
   }
+  
+  
+  	/**
+	 * Put selected user in wastebasket.
+	 *
+	 * @param id integer the id of the user.
+	 */
+  public function Delete($id) {
+	$redirect = $this->session->GetNextRedirect();
+	$this->session->SetNextRedirect($redirect);
+	$status = $this->user->Delete($id);
+    if($status === false) {
+      $this->AddMessage('notice', 'The delete action was not successful.');
+      $this->RedirectToController();
+    } else if($status === true) {
+      $this->RedirectTo($redirect);
+    }
+  }
+  
   
   /**
 	 * Save updates to profile information.

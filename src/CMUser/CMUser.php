@@ -42,18 +42,19 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess, IModule {
       'drop table user' => "DROP TABLE IF EXISTS User;",
       'drop table group' => "DROP TABLE IF EXISTS Groups;",
       'drop table user2group' => "DROP TABLE IF EXISTS User2Groups;",
-      'create table user' => "CREATE TABLE IF NOT EXISTS User (id INTEGER PRIMARY KEY, acronym TEXT KEY UNIQUE, name TEXT, email TEXT, algorithm TEXT, salt TEXT, password TEXT, created DATETIME default (datetime('now')), updated DATETIME default NULL);",
+      'create table user' => "CREATE TABLE IF NOT EXISTS User (id INTEGER PRIMARY KEY, acronym TEXT KEY UNIQUE, name TEXT, email TEXT, algorithm TEXT, salt TEXT, password TEXT, created DATETIME default (datetime('now')), updated DATETIME default NULL, deleted DATETIME default NULL);",
       'create table group' => "CREATE TABLE IF NOT EXISTS Groups (id INTEGER PRIMARY KEY, acronym TEXT KEY, name TEXT, created DATETIME default (datetime('now')), updated DATETIME default NULL);",
       'create table user2group' => "CREATE TABLE IF NOT EXISTS User2Groups (idUser INTEGER, idGroups INTEGER, created DATETIME default (datetime('now')), PRIMARY KEY(idUser, idGroups));",
       'insert into user' => 'INSERT INTO User (acronym,name,email,algorithm,salt,password) VALUES (?,?,?,?,?,?);',
       'insert into group' => 'INSERT INTO Groups (acronym,name) VALUES (?,?);',
       'insert into user2group' => 'INSERT INTO User2Groups (idUser,idGroups) VALUES (?,?);',
-      'check user password' => 'SELECT * FROM User WHERE (acronym=? OR email=?);',
+      'check user password' => 'SELECT * FROM User WHERE (acronym=? OR email=?) AND deleted IS NULL;',
       'get group memberships' => 'SELECT * FROM Groups AS g INNER JOIN User2Groups AS ug ON g.id=ug.idGroups WHERE ug.idUser=?;',
       'update profile' => "UPDATE User SET acronym=?, name=?, email=?, updated=? WHERE id=?;",
       'update password' => "UPDATE User SET algorithm=?, salt=?, password=?, updated=? WHERE id=?;",
-	  'view all users' => "SELECT * FROM User ORDER BY created DESC;",
-	  'view user' => "SELECT * FROM User WHERE id=?;",
+	  'update user as deleted' => "UPDATE User SET deleted=datetime('now') WHERE id=?;",
+	  'view all users' => "SELECT * FROM User WHERE deleted IS NULL ORDER BY created DESC;",
+	  'view user' => "SELECT * FROM User WHERE id=? AND deleted IS NULL;",
 	  'view all groups' => "SELECT * FROM Groups;",
 	  'view user groups' => "SELECT idGroups FROM User2Groups WHERE idUser=?;",
 	  'delete user groups' => "DELETE FROM User2Groups WHERE idUser=?;",
@@ -80,19 +81,15 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess, IModule {
 		  $this->db->ExecuteQuery(self::SQL('create table group'));
 		  $this->db->ExecuteQuery(self::SQL('create table user2group'));
 		  $password = $this->CreatePassword('root');
-		  $this->db->ExecuteQuery(self::SQL('insert into user'), array('root', 'Root of administration', 'mats.beddinge@gmail.com', $password['algorithm'], $password['salt'], $password['password']));
+		  $this->db->ExecuteQuery(self::SQL('insert into user'), array('root', 'Admin', 'your.email@domain.something', $password['algorithm'], $password['salt'], $password['password']));
 		  $idRootUser = $this->db->LastInsertId();
-		  $password = $this->CreatePassword('doe');
-		  $this->db->ExecuteQuery(self::SQL('insert into user'), array('doe', 'Dideleydoo', 'doe@dbwebb.se', $password['algorithm'], $password['salt'], $password['password']));
-		  $idDoeUser = $this->db->LastInsertId();
 		  $this->db->ExecuteQuery(self::SQL('insert into group'), array('admin', 'The Administrator Group'));
 		  $idAdminGroup = $this->db->LastInsertId();
 		  $this->db->ExecuteQuery(self::SQL('insert into group'), array('user', 'The User Group'));
 		  $idUserGroup = $this->db->LastInsertId();
 		  $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idAdminGroup));
 		  $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idUserGroup));
-		  $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idDoeUser, $idUserGroup));
-		  return array('success', 'Successfully created the database tables and created a default admin user as root:root and an ordinary user as doe:doe.');
+		  return array('success', 'Successfully created the database tables and created a default admin user as root:root.');
 		} catch(Exception$e) {
 		  die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
 		}
@@ -178,6 +175,22 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess, IModule {
 	}
 	return true;
 }
+
+	/**
+	 * Delete user. Set its deletion-date to enable wastebasket functionality.
+	 *
+	 * @returns boolean true if success else false.
+	 */
+  public function Delete($id) {
+    $this->db->ExecuteQuery(self::SQL('update user as deleted'), array($id));
+    $rowcount = $this->db->RowCount();
+    if($rowcount) {
+      $this->AddMessage('success', "Successfully set user with id:" . $id . " as deleted.");
+    } else {
+      $this->AddMessage('error', "Failed to set user with id:" . $id . " as deleted.");
+    }
+    return $rowcount === 1;
+  }
   
 
   /**

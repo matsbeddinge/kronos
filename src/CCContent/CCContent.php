@@ -19,12 +19,16 @@ class CCContent extends CObject implements IController {
 
   /**
 	 * Show a listing of all content.
+	 *
+	 * @param type, array with settings for the request.
 	 */
-  public function Index() {
-    $content = new CMContent();
+  public function Index($type=null) {
+    $this->session->SetNextRedirect($this->request->request);
+	$content = new CMContent();
     $this->views->SetTitle('Content Controller');
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
-                  'contents' => $content->ListAll(),
+                  'contents' => $content->ListAll(array('type'=>"{$type}", 'order-by'=>'created', 'order-order'=>'DESC')),
+				  'type' => $type,
                 ));
   }
   
@@ -35,18 +39,24 @@ class CCContent extends CObject implements IController {
 	 * @param id integer the id of the content.
 	 */
   public function Edit($id=null) {
-    $content = new CMContent($id);
-		if($this->type != null){$content['type'] = $this->type;}
+    if(!$this->user['isAuthenticated']){die('404. You have no access right to perform this action.');}
+	$content = new CMContent($id);
+	if($id != null){
+		if(!($this->user['hasRoleAdmin'] || ($this->user['acronym'] == $content['owner']))){die('404. You have no access right to perform this action.');}
+	}
+	else{
+		if(!($this->user['hasRoleAdmin'] || $this->user['hasRoleUser'])){die('404. You have no access right to perform this action.');}
+	}
+	if($this->type != null){$content['type'] = $this->type;}
     $form = new CFormContent($content);
-		$redirect = $this->session->GetNextRedirect();
-		$this->session->SetNextRedirect($redirect);
+	$redirect = $this->session->GetNextRedirect();
+	$this->session->SetNextRedirect($redirect);
     $status = $form->Check();
     if($status === false) {
       $this->AddMessage('notice', 'The form could not be processed.');
       $this->RedirectToController('edit', $id);
     } else if($status === true) {
-      //$this->RedirectToController('edit', $content['id']);
-			$this->RedirectTo($redirect);
+		$this->RedirectTo($redirect);
     }
     
     $title = isset($id) ? 'Edit' : 'Create';
@@ -60,8 +70,10 @@ class CCContent extends CObject implements IController {
   
 
   /**
-	 * Create new content.
-	 */
+	* Create new content.
+	*
+	* @param type string the type of content (post/page).
+	*/
   public function Create($type=null) {
 		$this->type = $type;
     $this->Edit();
@@ -74,13 +86,18 @@ class CCContent extends CObject implements IController {
 	 * @param id integer the id of the content.
 	 */
   public function Delete($id) {
-    $content = new CMContent();
+    if(!$this->user['isAuthenticated']){die('404. You have no access right to perform this action.');}
+	$content = new CMContent($id);
+	if(!($this->user['hasRoleAdmin'] || ($this->user['acronym'] == $content['owner']))){die('404. You have no access right to perform this action.');}
+	
+	$redirect = $this->session->GetNextRedirect();
+	$this->session->SetNextRedirect($redirect);
 	$status = $content->Delete($id);
     if($status === false) {
       $this->AddMessage('notice', 'The delete action was not successful.');
       $this->RedirectToController();
     } else if($status === true) {
-      $this->RedirectToController();
+      $this->RedirectTo($redirect);
     }
   }
   

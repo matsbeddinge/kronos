@@ -1,10 +1,7 @@
 <?php if($hasRoleAdmin): ?>
 
 <h1>Admin Control Panel</h1>
-<p>Currently you can update and delete users.</p>
-
-<h2>Current users</h2>
-
+<h2>Users</h2>
 <table style="font-size:small">
 <thead><th>id</th><th>acronym</th><th>name</th><th>email</th><th>created</th><th>updated</th><th></th></thead>
 <tbody>
@@ -25,8 +22,15 @@
 </tbody>
 </table>
 <?php if($allow_create_user) : ?>
-<p class='form-action-link'><a href='<?=$create_user_url?>' title='Create a new user account'>Create user</a></p>
+<p><a href='<?=$create_user_url?>' title='Create a new user account'>Create user</a></p>
 <?php endif; ?>
+
+<h2>Blog posts</h2>
+<p><a href='<?=create_url("content/index/post")?>' title=''>List all blog posts</a><br>
+<a href='<?=create_url("comment/index")?>' title=''>List all blog comments</a></p>
+
+<h2>Pages</h2>
+<p><a href='<?=create_url("content/index/page")?>' title=''>List all pages</a><br>
 
 <?php else: ?>
 <div class='alert'>You are not authorized to access this page.</div>

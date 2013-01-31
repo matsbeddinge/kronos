@@ -41,14 +41,14 @@ class CMComment extends CObject implements IHasSQL, ArrayAccess, IModule {
 	 */
   public static function SQL($key=null, $args=null) {
     $order_order = isset($args['order-order']) ? $args['order-order'] : 'ASC';
-    $order_by = isset($args['order-by']) ? $args['order-by'] : 'c.created';
+    $order_by = isset($args['order-by']) ? $args['order-by'] : 'created';
     $queries = array(
       'drop table comment' => "DROP TABLE IF EXISTS Comment;",
 	  'create table comment' => "CREATE TABLE IF NOT EXISTS Comment (id INTEGER PRIMARY KEY, data TEXT, filter TEXT, idUser INT, idContent INT, created DATETIME default (datetime('now')), updated DATETIME default NULL, deleted DATETIME default NULL, FOREIGN KEY(idUser) REFERENCES User(id), FOREIGN KEY(idContent) REFERENCES Content(id));",
       'insert comment' => 'INSERT INTO Comment (data,filter,idUser,idContent) VALUES (?,?,?,?);',
-      'select * by id' => 'SELECT c.*, u.acronym as owner FROM Comment AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.id=? AND deleted IS NULL;',
+      'select * by id' => 'SELECT c.*, u.acronym as owner FROM Comment AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.id=? AND c.deleted IS NULL;',
       'select * by content' => "SELECT Comment.*, User.acronym as owner, User.email as email FROM Comment INNER JOIN User ON Comment.idUser=User.id WHERE idContent=? AND Comment.deleted IS NULL;",
-      'select *' => "SELECT Comment.*, User.acronym as owner FROM Comment INNER JOIN User ON Comment.idUser=User.id WHERE deleted IS NULL;",
+      'select *' => "SELECT Comment.*, User.acronym as owner FROM Comment INNER JOIN User ON Comment.idUser=User.id WHERE Comment.deleted IS NULL ORDER BY Comment.{$order_by} {$order_order};",
       'update comment' => "UPDATE Comment SET data=?, filter=?, updated=datetime('now') WHERE id=?;",
 	  'update comment as deleted' => "UPDATE Comment SET deleted=datetime('now') WHERE id=?;",
      );
@@ -68,8 +68,7 @@ class CMComment extends CObject implements IHasSQL, ArrayAccess, IModule {
         try {
           $this->db->ExecuteQuery(self::SQL('drop table comment'));
 		  $this->db->ExecuteQuery(self::SQL('create table comment'));
-          $this->db->ExecuteQuery(self::SQL('insert comment'), array("This is a demo comment.\n\nA new row in this demo comment.", 'plain', 1, 2));
-		  $this->db->ExecuteQuery(self::SQL('insert comment'), array("This is another demo comment.", 'plain', 1, 3));
+          $this->db->ExecuteQuery(self::SQL('insert comment'), array("This is a demo comment.", 'plain', 1, 2));
 		  return array('success', 'Successfully created the Comment table and created default comments.');
         } catch(Exception$e) {
           die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);

@@ -10,10 +10,9 @@
 
 <h2>Installation</h2>
 <p>First you have to make the data-directory writable. This is the place where Kronos needs
-to be able to write and create files. You also have to make the themes/grid directory writable to enable LESS functionality.</p>
+to be able to write and create files.</p>
 <blockquote>
 <code>cd kronos; chmod 777 application/data</code><br>
-<code>cd kronos; chmod 777 themes/grid</code>
 </blockquote>
 
 <p>Second, Kronos has some modules that need to be initialised. You can do this through a

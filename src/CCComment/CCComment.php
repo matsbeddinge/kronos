@@ -17,10 +17,11 @@ class CCComment extends CObject implements IController {
 	 * Show a listing of all comments.
 	 */
   public function Index() {
-    $comment = new CMComment();
+    $this->session->SetNextRedirect($this->request->request);
+	$comment = new CMComment();
     $this->views->SetTitle('Comment Controller');
     $this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
-                  'comments' => $comment->ListAll(),
+                  'comments' => $comment->ListAll(array('order-by'=>'idContent', 'order-order'=>'DESC')),
                 ));
   }
   
@@ -31,7 +32,10 @@ class CCComment extends CObject implements IController {
 	 * @param id integer the id of the comment.
 	 */
   public function Edit($id=null) {
-    $comment = new CMComment($id);
+    if(!$this->user['isAuthenticated']){die('404. You have no access right to perform this action.');}
+	$comment = new CMComment($id);
+	if(!($this->user['hasRoleAdmin'] || ($this->user['acronym'] == $comment['owner']))){die('404. You have no access right to perform this action.');}
+		
     $form = new CFormComment($comment);
 		$redirect = $this->session->GetNextRedirect();
 		$this->session->SetNextRedirect($redirect);
@@ -61,7 +65,7 @@ class CCComment extends CObject implements IController {
 	 */
   public function Create($idContent) {
 		if(!$this->user['isAuthenticated']){
-			$this->AddMessage('notice', 'You need to login.');
+			$this->AddMessage('notice', 'You need to login (or create your own new account).');
 			$this->session->SetRedirectWithLogin($this->session->GetNextRedirect()); //remember where to redirect after creating comment, including a login process.
 			$this->session->SetNextRedirect($this->request->request); //remember where to redirect after login process.
 			$this->RedirectTo('user', 'login');
@@ -100,10 +104,13 @@ class CCComment extends CObject implements IController {
 	 * @param id integer the id of the comment.
 	 */
   public function Delete($id) {
-    $comment = new CMComment();
-		$redirect = $this->session->GetNextRedirect();
-		$this->session->SetNextRedirect($redirect);
-		$status = $comment->Delete($id);
+    if(!$this->user['isAuthenticated']){die('404. You have no access right to perform this action.');}
+	$comment = new CMComment($id);
+	if(!($this->user['hasRoleAdmin'] || ($this->user['acronym'] == $comment['owner']))){die('404. You have no access right to perform this action.');}
+	
+	$redirect = $this->session->GetNextRedirect();
+	$this->session->SetNextRedirect($redirect);
+	$status = $comment->Delete($id);
     if($status === false) {
       $this->AddMessage('notice', 'The delete action was not successful.');
       $this->RedirectToController();
@@ -111,17 +118,6 @@ class CCComment extends CObject implements IController {
 			$this->RedirectTo($redirect);
     }
   }
-  
-
-	/**
-	 * 
-	 */
-  public function Show($i) {
-    $comment = new CMComment();
-	$this->views->AddInclude(dirname(__FILE__) . '/index.tpl.php', array(
-		'comments' => $comment->ListComments($i),
-	));
-  }
-  
+ 
 
 } 
