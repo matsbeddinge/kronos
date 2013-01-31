@@ -25,13 +25,15 @@ Install your database tables
 Set up your account and add your first page and blogpost
 ========================================================
 6. At installation you have got your own account. You are administrator and can login with acronym:root and password:root. Do login.
-7a. First of all change your profile and password by click the link admin in the upper right corner.
-7b. Click on the pen symbol to edit user root.
-7c. Change your profile and password and save.
-7d. Logout and now login with your new acronym and password.
+7. First of all change your profile and password by click the link admin in the upper right corner.
+8. Click on the pen symbol to edit user root.
+9. Change your profile and password and save.
+10. Logout and now login with your new acronym and password.
+
 At installation one about-me page and one blog page with a first demo blogpost was generated.
-8a. Go to the about page and click on the edit link, (you need to have logged in). Now fill in whatever information you like to give.
-8b. Go to the blog page and click on the edit link on the first post, (you need to have logged in). Write your first blog post.
+11. Go to the about page and click on the edit link, (you need to have logged in). Now fill in whatever information you like to give.
+12. Go to the blog page and click on the edit link on the first post, (you need to have logged in). Write your first blog post.
+
 Welcome your done. Now it's just to continue bloging. To create new blog posts, edit or delete old blog posts you just use 
 the descriptive links directly in conjunction to the posts on the site when you are logged in.
 
@@ -53,7 +55,7 @@ Change main title of site:
 
 Change information of footer:
 - Open the config.php file in the directory application with a text editor. 
-- At the end of the file change the line 'footer' => '<p>2013 &copy; SimplyBlog</p>' write your information ie. 'footer' => '<p>2013 &copy; My Name</p>'
+- At the end of the file change the line 'footer'... Follow the instructions in the config file.
 - Save the config.php file (and upload to server if you worked on a local copy)
 
 Change menu:

@@ -67,7 +67,13 @@ $kronos->config['menus'] = array(
 );
 
 
-// Add static entries for use in the template file.
+/** Add static entries for use in the template file.
+ *
+ * 'sitetitle' gives the first part of your site title placed on all pages, change it contents 'SimlplyBlog:' to your preferences. 
+ * 'logo' gives the name of your image file for the logo placed in directory application/themes/mySimplyBlogg, change 'logga.png' to your file. 
+ * 'footer' defines what's placed in the footer on all pages, change it by rewrite '<p>2013 &copy; SimplyBlog</p>' to your preferences.
+ *	Note, that when changing the content of footer you can use html tags.
+ */
 $kronos->config['theme']['data'] = array(
     'sitetitle' => 'SimlplyBlog:',
 	'logo' => 'logga.png',
